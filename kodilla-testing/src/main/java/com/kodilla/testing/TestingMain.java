@@ -13,10 +13,10 @@ public class TestingMain {
             System.out.println("Error!");
         }
         // class Calculator tests
-        Calculator digits1 = new Calculator(4,2);
+        Calculator digits1 = new Calculator();
 
-        int sub = digits1.substract();
-        int adding  = digits1.add();
+        int sub = digits1.substract(5,3);
+        int adding  = digits1.add(5,1);
 
         if (sub == 2 && adding == 6) {
             System.out.println("test ok");
