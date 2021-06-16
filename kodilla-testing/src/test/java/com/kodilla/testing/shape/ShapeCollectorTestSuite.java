@@ -28,12 +28,9 @@ public class ShapeCollectorTestSuite {
             ShapeCollector collector = new ShapeCollector();
             collector.addFigure(square);
             //When
-            System.out.println(collector.showFigures());
             boolean result = collector.removeFigure(square);
             //Then
             Assertions.assertTrue(result);
-            System.out.println(collector.showFigures()+"Jesli wyswietla sie tylko ten napis znaczy ze dziala");
-
         }
     }
 

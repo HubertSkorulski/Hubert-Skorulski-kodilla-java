@@ -13,7 +13,9 @@ public class ShapeCollector {
         boolean result = false;
         if (shapes.contains(shape)) {
             shapes.remove(shape);
-            result = true;
+            if (!shapes.contains(shape)) {
+                result = true;
+            }
         }
         return result;
     }
