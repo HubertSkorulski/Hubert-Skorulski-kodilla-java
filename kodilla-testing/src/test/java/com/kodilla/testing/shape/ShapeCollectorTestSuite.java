@@ -25,12 +25,15 @@ public class ShapeCollectorTestSuite {
         void testRemoveShape() {
             //Given
             Shape square = new Square("Kwadrat", 40.5);
+            Shape triangle = new Triangle("Trojkat", 30);
             ShapeCollector collector = new ShapeCollector();
             collector.addFigure(square);
+            collector.addFigure(triangle);
             //When
             boolean result = collector.removeFigure(square);
             //Then
             Assertions.assertTrue(result);
+            Assertions.assertEquals(triangle,collector.getFigure(0));
         }
     }
 
