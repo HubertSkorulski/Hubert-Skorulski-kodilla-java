@@ -56,15 +56,15 @@ public class TestSuiteForumStatistics {
         users.add("Pies");
         when(statisticsMock.userNames()).thenReturn(users);
         when(statisticsMock.postsCount()).thenReturn(1000);
-        when(statisticsMock.commentsCount()).thenReturn(4);
+        when(statisticsMock.commentsCount()).thenReturn(2);
 
         //When
         forumStatistics.calculateAdvStatistics(statisticsMock);
 
         //Then
         Assertions.assertEquals(500,forumStatistics.avgPost);
-        Assertions.assertEquals(2,forumStatistics.avgComments);
-        Assertions.assertEquals(4/1000,forumStatistics.comPerPo);
+        Assertions.assertEquals(1,forumStatistics.avgComments);
+        Assertions.assertEquals(0,forumStatistics.comPerPo);
 
     }
     @DisplayName("Comments = 0")
@@ -98,15 +98,15 @@ public class TestSuiteForumStatistics {
         users.add("Pies");
         when(statisticsMock.userNames()).thenReturn(users);
         when(statisticsMock.postsCount()).thenReturn(100);
-        when(statisticsMock.commentsCount()).thenReturn(50);
+        when(statisticsMock.commentsCount()).thenReturn(5);
 
         //When
         forumStatistics.calculateAdvStatistics(statisticsMock);
 
         //Then
         Assertions.assertEquals(50,forumStatistics.avgPost);
-        Assertions.assertEquals(25,forumStatistics.avgComments);
-        Assertions.assertEquals(1/2,forumStatistics.comPerPo);
+        Assertions.assertEquals(2,forumStatistics.avgComments);
+        Assertions.assertEquals(0,forumStatistics.comPerPo);
 
     }
     @DisplayName("Comments > Posts")
