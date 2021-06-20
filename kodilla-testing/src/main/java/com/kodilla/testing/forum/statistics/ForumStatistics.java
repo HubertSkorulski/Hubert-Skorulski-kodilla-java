@@ -23,7 +23,7 @@ public class ForumStatistics {
             System.out.println("do not divide by 0");
         }
         if (usersPosts!=0) {
-            comPerPo = usersComments / usersPosts;
+            comPerPo = Math.round(usersComments / usersPosts*100.0)/100.0;
         } else {
             System.out.println("do not divide by 0");
         }
