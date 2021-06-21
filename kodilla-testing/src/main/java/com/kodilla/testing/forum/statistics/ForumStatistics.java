@@ -1,17 +1,17 @@
 package com.kodilla.testing.forum.statistics;
 
 public class ForumStatistics {
-    int usersCount;
-    int usersPosts;
-    int usersComments;
+    double usersCount;
+    double usersPosts;
+    double usersComments;
     double avgPost;
     double avgComments;
     double comPerPo;
 
     void calculateAdvStatistics(Statistics statistics) {
-        usersCount = statistics.userNames().size();
-        usersPosts = statistics.postsCount();
-        usersComments = statistics.commentsCount();
+        usersCount = (double)statistics.userNames().size();
+        usersPosts = (double)statistics.postsCount();
+        usersComments = (double)statistics.commentsCount();
         if (usersCount != 0) {
             avgPost = usersPosts / usersCount;
         } else {
@@ -23,7 +23,7 @@ public class ForumStatistics {
             System.out.println("do not divide by 0");
         }
         if (usersPosts!=0) {
-            comPerPo = Math.round(usersComments / usersPosts*100.0)/100.0;
+            comPerPo = usersComments / usersPosts;
         } else {
             System.out.println("do not divide by 0");
         }

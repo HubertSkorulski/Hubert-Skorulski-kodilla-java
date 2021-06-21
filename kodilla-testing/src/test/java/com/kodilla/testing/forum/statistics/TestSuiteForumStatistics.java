@@ -46,6 +46,7 @@ public class TestSuiteForumStatistics {
         Assertions.assertEquals(0,forumStatistics.comPerPo);
 
 
+
     }
     @DisplayName("Posts = 1000")
     @Test
@@ -65,7 +66,7 @@ public class TestSuiteForumStatistics {
         //Then
         Assertions.assertEquals(500,forumStatistics.avgPost);
         Assertions.assertEquals(2,forumStatistics.avgComments);
-        Assertions.assertEquals(0.004,forumStatistics.comPerPo,0.004);
+        Assertions.assertEquals(0.004,forumStatistics.comPerPo);
 
     }
     @DisplayName("Comments = 0")
@@ -107,7 +108,7 @@ public class TestSuiteForumStatistics {
         //Then
         Assertions.assertEquals(50,forumStatistics.avgPost);
         Assertions.assertEquals(25,forumStatistics.avgComments);
-        Assertions.assertEquals(0.5,forumStatistics.comPerPo, 0.5);
+        Assertions.assertEquals(0.5,forumStatistics.comPerPo);
 
     }
     @DisplayName("Comments > Posts")
@@ -119,16 +120,16 @@ public class TestSuiteForumStatistics {
         users.add("Kot");
         users.add("Pies");
         when(statisticsMock.userNames()).thenReturn(users);
-        when(statisticsMock.postsCount()).thenReturn(50);
-        when(statisticsMock.commentsCount()).thenReturn(100);
+        when(statisticsMock.postsCount()).thenReturn(35);
+        when(statisticsMock.commentsCount()).thenReturn(113);
 
         //When
         forumStatistics.calculateAdvStatistics(statisticsMock);
 
         //Then
-        Assertions.assertEquals(25,forumStatistics.avgPost);
-        Assertions.assertEquals(50,forumStatistics.avgComments);
-        Assertions.assertEquals(2,forumStatistics.comPerPo);
+        Assertions.assertEquals(17.5,forumStatistics.avgPost);
+        Assertions.assertEquals(56.5,forumStatistics.avgComments);
+        Assertions.assertEquals(3.228,forumStatistics.comPerPo,0.001);
 
     }
     @DisplayName("Users = 0")
@@ -137,8 +138,6 @@ public class TestSuiteForumStatistics {
         //Given
         ForumStatistics forumStatistics = new ForumStatistics();
         List<String> users = new ArrayList<>();
-        users.add("Kot");
-        users.add("Pies");
         when(statisticsMock.userNames()).thenReturn(users);
         when(statisticsMock.postsCount()).thenReturn(4);
         when(statisticsMock.commentsCount()).thenReturn(4);
@@ -147,15 +146,14 @@ public class TestSuiteForumStatistics {
         forumStatistics.calculateAdvStatistics(statisticsMock);
 
         //Then
-        Assertions.assertEquals(2,forumStatistics.avgPost);
-        Assertions.assertEquals(2,forumStatistics.avgComments);
+        Assertions.assertEquals(0,forumStatistics.avgPost);
+        Assertions.assertEquals(0,forumStatistics.avgComments);
         Assertions.assertEquals(1,forumStatistics.comPerPo);
 
     }
     @DisplayName("Users = 1000")
     @Test
     void testCalculateAdvStatisticsU1000() {
-
 
         //Given
         ForumStatistics forumStatistics = new ForumStatistics();
@@ -164,16 +162,16 @@ public class TestSuiteForumStatistics {
             users.add("user"+i);
         }
         when(statisticsMock.userNames()).thenReturn(users);
-        when(statisticsMock.postsCount()).thenReturn(4000);
-        when(statisticsMock.commentsCount()).thenReturn(4000);
+        when(statisticsMock.postsCount()).thenReturn(40);
+        when(statisticsMock.commentsCount()).thenReturn(4);
 
         //When
         forumStatistics.calculateAdvStatistics(statisticsMock);
 
         //Then
-        Assertions.assertEquals(4,forumStatistics.avgPost);
-        Assertions.assertEquals(4,forumStatistics.avgComments);
-        Assertions.assertEquals(1,forumStatistics.comPerPo);
+        Assertions.assertEquals(0.04,forumStatistics.avgPost);
+        Assertions.assertEquals(0.004,forumStatistics.avgComments);
+        Assertions.assertEquals(0.1,forumStatistics.comPerPo);
     }
 
 }
