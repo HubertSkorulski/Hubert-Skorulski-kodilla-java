@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public interface ArrayOperations {
 
-    static OptionalDouble getAverage(int[] numbers){
+    static double getAverage(int[] numbers){
 
         IntStream.range(0,numbers.length)
                 .map(n-> numbers[n])
@@ -14,6 +14,6 @@ public interface ArrayOperations {
         OptionalDouble avg = IntStream.range(0,numbers.length)
                 .map(n-> numbers[n])
                 .average();
-        return avg;
+        return avg.getAsDouble();
     }
 }

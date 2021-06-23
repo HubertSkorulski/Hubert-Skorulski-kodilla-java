@@ -10,8 +10,8 @@ public class ArrayOperationsTestSuite {
     //Given
     int[] nums = {2,4,2,2,2,2,2,2,2,4,4,4,4,47,3,3,4,2,4,5};
     //When
-    OptionalDouble result = ArrayOperations.getAverage(nums);
+    double result = ArrayOperations.getAverage(nums);
     //Then
-    assertEquals(5.2,result.getAsDouble());
+    assertEquals(5.2,result);
 }
 }
