@@ -54,14 +54,13 @@ public class RpsRunner {
             ComputerFigure computerFigure = new ComputerFigure();
 
             //Pojedynek
-            char result = playerFigure.playerWin(computerFigure);
+            String result = playerFigure.playerWin(computerFigure);
             //Liczenie punktów
-            if (result == 'W') {
+            if (result.equals("W")) {
                 player_wins++;
-            } else if (result == 'L') {
+            } else if (result.equals("L")) {
                 comp_wins++;
-            } else if (result == 'D') {
-                System.out.println("It's a draw");
+            } else if (result.equals("D")) {
             }
                 //Koniec gry
             if (player_wins == rounds || comp_wins == rounds) {

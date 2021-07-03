@@ -2,13 +2,16 @@ package com.kodilla.rps;
 
 public class Rock implements Figure {
 
-    public char playerWin(ComputerFigure figure){
-        if (figure.getName() == "paper") {
-            return 'L';
-        } else if (figure.getName()== "scissors"){
-            return 'W';
+    public String playerWin(ComputerFigure figure){
+        if (figure.getName().equals("paper")) {
+            System.out.println("Computer win");
+            return "L";
+        } else if (figure.getName().equals("scissors")) {
+            System.out.println("Player win");
+            return "W";
         } else {
-            return 'D';
+            System.out.println("It's a draw");
+            return "D";
         }
     }
 
