@@ -8,8 +8,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class FreeStyleChecking {
     public static void main(String[] args){
 
-        Random random = new Random();
-        System.out.println(random.nextInt(3) + 1);
+        double x = 0;
+        double y= 2;
+        System.out.println(x >= 2 || x < 1 || y == 1.5);
 
 
     }
