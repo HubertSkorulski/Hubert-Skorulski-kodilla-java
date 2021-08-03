@@ -1,4 +1,4 @@
-package com.kodilla.blackjack;
+package com.kodilla.checkers;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -12,20 +12,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CheckerBoard {
 
-    private Image empty = new Image("file:src/main/resources/empty.png", 75, 75, false, true);
+    private final Image empty = new Image("file:src/main/resources/empty.png", 75, 75, false, true);
     TextField textFieldTo = new TextField();
     TextField textFieldFrom = new TextField();
     Label takePawn = new Label("Take pawn from");
     Label movePawnTo = new Label("Move pawn to");
     List<Pawn> redsList = new ArrayList<>();
     List<Pawn> bluesList = new ArrayList<>();
+
     Label redPoints = new Label("12");
     Label bluePoints = new Label("12");
 
@@ -37,11 +37,12 @@ public class CheckerBoard {
         gridPane.setMaxHeight(75);
         gridPane.setMinHeight(75);
 
+
         redsList.clear();
         bluesList.clear();
 
         for (int i =0; i<12; i++) {
-            redsList.add(new Pawn("red",false));
+            redsList.add(new Pawn("red", false));
         }
         for (int i =0; i<12; i++) {
             bluesList.add(new Pawn("blue",false));
@@ -195,197 +196,6 @@ public class CheckerBoard {
 
     public void cleaning (GridPane gridPane) {
         gridPane.getChildren().clear();
-    }
-
-    public void movePawn(GridPane gridPane, final int rowFrom, final int colFrom, int rowTo, int colTo) throws FileNotFoundException {
-        /*Node movingNode = null;
-        ObservableList<Node> children = gridPane.getChildren();
-        Node newPlace = null;
-        Node beatenNode = null;
-        int checkingRow = 0;
-        int checkingCol = 0;
-        Pawn movingPawn = null;
-        Pawn beatenPawn = null;
-
-
-        for (Node node : children) {
-            if (gridPane.getRowIndex(node) == rowFrom && gridPane.getColumnIndex(node) == colFrom) {
-                movingNode = node;
-                break;
-            }
-        }
-
-        for (Node node : children) {
-            if (gridPane.getRowIndex(node) == rowTo && gridPane.getColumnIndex(node) == colTo) {
-                newPlace = node;
-            }
-        }
-        //Tu sprawdzam czy na trasie jest pionek do zbicia
-        for (int i = 1; i < Math.abs(rowTo - rowFrom); i++) {
-            if (rowTo > rowFrom && colTo > colFrom) {
-                checkingRow = rowFrom + i;
-                checkingCol = colFrom + i;
-            } else if (rowTo < rowFrom && colTo > colFrom) {
-                checkingRow = rowFrom - i;
-                checkingCol = colFrom + i;
-            } else if (rowTo > rowFrom && colTo < colFrom) {
-                checkingRow = rowFrom + i;
-                checkingCol = colFrom - i;
-            } else if (rowTo < rowFrom && colTo < colFrom) {
-                checkingRow = rowFrom - i;
-                checkingCol = colFrom - i;
-            } else {
-                System.out.println("Coś się zepsuło i nie było mnie słychać");
-            }
-
-            for (Node node : children) {
-                if (gridPane.getRowIndex(node) == checkingRow && gridPane.getColumnIndex(node) == checkingCol) {
-                    beatenNode = node;
-                    break;
-                }
-            }
-
-            if (beatenNode != null) {
-                break;
-            }
-        }
-
-        //Tu nody z gridPane zmieniamy na obiekty
-        List<Pawn> allPawns = Stream.concat(redsList.stream(),bluesList.stream()).collect(Collectors.toList());
-        for (Pawn pawn : allPawns) {
-            if (pawn.getNode()==movingNode) {
-                movingPawn = pawn;
-                break;
-            }
-        }
-        for (Pawn pawn : allPawns) {
-            if (pawn.getNode() == beatenNode){
-                beatenPawn = pawn;
-                break;
-            }
-        }
-
-        //Tu wykonywany jest ruch
-        if (newPlace == null) {
-            if (!Arrays.asList(0).contains(colTo) && (!Arrays.asList(0).contains(rowTo))) {
-                if (movingPawn.isQueen()) { //ruch damki
-                    if (Math.abs(rowTo-rowFrom) == Math.abs(colFrom-colTo)) {
-                        if (beatenPawn != null) {
-                            if (movingPawn.getColour() != beatenPawn.getColour()) { //ruch niebieskiej damki
-                                //Pozycja po zbitym pionku
-                                if (rowTo > rowFrom && colTo > colFrom) {
-                                    rowTo = checkingRow + 1;
-                                    colTo = checkingCol + 1;
-                                } else if (rowTo < rowFrom && colTo > colFrom) {
-                                    rowTo = checkingRow - 1;
-                                    colTo = checkingCol + 1;
-                                } else if (rowTo > rowFrom && colTo < colFrom) {
-                                    rowTo = checkingRow + 1;
-                                    colTo = checkingCol - 1;
-                                } else if (rowTo < rowFrom && colTo < colFrom) {
-                                    rowTo = checkingRow - 1;
-                                    colTo = checkingCol - 1;
-                                } else {
-                                    System.out.println("Coś się zepsuło i nie było mnie słychać2");
-                                }
-                                for (Node node : children) {
-                                    if (gridPane.getRowIndex(node) == rowTo && gridPane.getColumnIndex(node) == colTo) {
-                                        newPlace = node;
-                                    }
-                                }
-                                if (newPlace == null) {
-                                    gridPane.getChildren().remove(beatenPawn.getNode());
-                                    gridPane.getChildren().remove(movingPawn.getNode());
-                                    gridPane.add(movingPawn.getNode(), colTo, rowTo);
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Nie ma miejsca na Twoj pionek", "Tekst", JOptionPane.ERROR_MESSAGE);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Chcesz zbic swojego", "Tekst", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            gridPane.getChildren().remove(movingPawn.getNode());
-                            gridPane.add(movingPawn.getNode(), colTo, rowTo);
-                        }
-                    }
-                } else { //zwykły pionek
-                    if ((colTo == colFrom + 1) || (colTo == colFrom - 1)) {
-                        if (movingPawn.getColour().equals("blue")) {
-                            if (rowTo == rowFrom + 1) {
-                                gridPane.getChildren().remove(movingPawn.getNode());
-                                if (rowTo == 8){
-                                    movingPawn.setQueen(true);
-                                    movingPawn.setNode();
-                                }
-                                gridPane.add(movingPawn.getNode(),colTo,rowTo);
-                            } else {
-
-                                JOptionPane.showMessageDialog(null,"Nie cofaj","Tekst",JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else if (movingPawn.getColour().equals("red")) {
-                            if (rowTo == rowFrom - 1) {
-                                gridPane.getChildren().remove(movingPawn.getNode());
-                                if (rowTo == 1) {
-                                    movingPawn.setQueen(true);
-                                    movingPawn.setNode();
-                                }
-                                gridPane.add(movingPawn.getNode(),colTo,rowTo);
-                            } else {
-                                JOptionPane.showMessageDialog(null,"Nie cofaj","Tekst",JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            System.out.println("Nie rozpoznaję koloru pionka");
-                        }
-
-                    } else if ((colTo == colFrom + 2) || (colTo == colFrom - 2)) {
-                        if (beatenPawn != null) {
-                            if (rowTo == rowFrom + 2 || rowTo == rowFrom -2) {
-                                if (!movingPawn.getColour().equals(beatenPawn.getColour())) {
-                                    gridPane.getChildren().remove(beatenPawn.getNode());
-                                    gridPane.getChildren().remove(movingPawn.getNode());
-                                    if (movingPawn.getColour().equals("red")) {
-                                        if (rowTo == 1) {
-                                            movingPawn.setQueen(true);
-                                            movingPawn.setNode();
-                                        }
-                                        gridPane.add(movingPawn.getNode(), colTo, rowTo);
-
-                                    } else if (movingPawn.getColour().equals("blue")) {
-                                        if (rowTo == 8) {
-                                            movingPawn.setQueen(true);
-                                            movingPawn.setNode();
-                                        }
-                                        gridPane.add(movingPawn.getNode(), colTo, rowTo);
-                                    } else {
-                                        System.out.println("Cos nie działa z kolorem ruszanego pionka");
-                                    }
-                                } else {
-                                    JOptionPane.showMessageDialog(null,"Bijesz swojego","Tekst",JOptionPane.ERROR_MESSAGE);
-                                }
-                            }
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null,"Za daleko w bok","Tekst",JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null,"Miejsce, na ktorym chcesz postawic pionek jest niedostepne","Tekst",JOptionPane.ERROR_MESSAGE);
-        }
-
-
-        PrintWriter moves = new PrintWriter("moves.txt");
-        moves.println(rowTo);
-        moves.close();
-
-        File file = new File("moves.txt");
-        Scanner scanner = new Scanner(file);
-        String sth = scanner.nextLine();
-        System.out.println(sth);
-
-        textFieldTo.clear();
-        textFieldFrom.clear();
-*/
     }
 
 
@@ -681,7 +491,6 @@ public class CheckerBoard {
         decoder.put("8", 8);
 
         for (String item : coordinatesBeforeDecoding) {
-
             if (decoder.containsKey(item.toUpperCase())) {
                 result = decoder.get(item.toUpperCase());
                 decoded.add(result);

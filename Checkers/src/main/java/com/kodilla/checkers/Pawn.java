@@ -1,4 +1,4 @@
-package com.kodilla.blackjack;
+package com.kodilla.checkers;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;

@@ -1,4 +1,4 @@
-package com.kodilla.blackjack;
+package com.kodilla.checkers;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -13,9 +13,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackJack extends Application {
+public class Checkers extends Application {
 
-    private Image checkersTable = new Image("file:src/main/resources/checkers table.png");
+    private final Image checkersTable = new Image("file:src/main/resources/checkers table.png");
     private List<Integer> moveCoordinates = new ArrayList<>();
     private List<Pawn> movedPawns = new ArrayList<>();
 
