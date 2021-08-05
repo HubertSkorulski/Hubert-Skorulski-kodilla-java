@@ -11,8 +11,4 @@ public class BookPurchaseService implements PurchaseService {
         }
     }
 
-    @Override
-    public void inform(User user) {
-
-    }
 }
