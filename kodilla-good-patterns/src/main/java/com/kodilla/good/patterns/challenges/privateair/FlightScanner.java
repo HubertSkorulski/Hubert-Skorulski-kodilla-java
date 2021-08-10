@@ -43,6 +43,8 @@ public class FlightScanner {
                 .filter(s-> s.getTo().equals(to))
                 .collect(Collectors.toList());
 
+        System.out.println(firstFlights.size());
+        System.out.println(secondaryFlights.size());
         Map<Flight,Flight> flightsVia = new HashMap<>();
 
         for (Flight firstFlight : firstFlights) {
