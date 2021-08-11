@@ -1,11 +1,12 @@
 package com.kodilla.spring.library;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-@SpringBootTest(classes = Library.class)
+@SpringBootTest(properties = "spring.main.lazy-initialization=true", classes = Library.class)
 public class LibraryTestSuite {
     @Test
     void testLoadFromDb() {
@@ -33,5 +34,8 @@ public class LibraryTestSuite {
 
         //Then
         //do nothing
+    }
+    @Test
+    void contextLoads() {
     }
 }
