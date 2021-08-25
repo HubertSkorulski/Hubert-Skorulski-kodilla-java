@@ -13,7 +13,7 @@ public class CheckersTestSuite {
         Checkers checkers = new Checkers.CheckersBuilder()          // [1]
                 .PlayerOne("John")                                       // [2]
                 .PlayerTwo("Theresa")                                    // [3]
-                .Figure(FigureFactory.PAWN, Figure.WHITE, 3, 0)          // [4]
+                .Figure(FigureFactory.PAWN, Figure.WHITE, 0, 3)          // [4]
                 .Figure(FigureFactory.PAWN, Figure.BLACK, 7, 9)          // [5]
                 .Figure(FigureFactory.QUEEN, Figure.WHITE, 2, 0)         // [6]
                 .build();                                                // [7]
