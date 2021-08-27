@@ -1,0 +1,10 @@
+INSERT INTO posts (USER_ID, BODY)
+valueS (3,'new comment');
+
+UPDATE posts
+set BODY ='To delete'
+where BODY = 'new comment';
+
+DELETE from posts
+where BODY = 'To delete';
+
