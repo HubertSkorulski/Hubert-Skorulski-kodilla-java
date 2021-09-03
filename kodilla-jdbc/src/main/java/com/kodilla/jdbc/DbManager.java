@@ -1,4 +1,4 @@
-package com.example.kodillajdbc;
+package com.kodilla.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

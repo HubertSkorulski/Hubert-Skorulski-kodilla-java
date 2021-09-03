@@ -1,11 +1,11 @@
 package com.kodilla.jdbc;
 
-import com.example.kodillajdbc.DbManager;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
