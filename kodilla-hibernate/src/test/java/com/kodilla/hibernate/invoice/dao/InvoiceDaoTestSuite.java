@@ -12,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class InvoiceDaoTestSuite {
 
@@ -28,13 +27,18 @@ public class InvoiceDaoTestSuite {
         Product productTwo = new Product("Banana");
         Item itemOne = new Item(BigDecimal.valueOf(25.33),2,BigDecimal.valueOf(50.66));
         Item itemTwo = new Item(BigDecimal.valueOf(35.00),3,BigDecimal.valueOf(105.00));
+        Item itemThree = new Item(BigDecimal.valueOf(25.00),3,BigDecimal.valueOf(75.00));
         productOne.getItemsProduct().add(itemOne);
         productTwo.getItemsProduct().add(itemTwo);
+        productOne.getItemsProduct().add(itemThree);
         itemOne.setProduct(productOne);
         itemTwo.setProduct(productTwo);
+        itemThree.setProduct(productOne);
+
         Invoice invoice = new Invoice("1234");
         invoice.getItems().add(itemOne);
         invoice.getItems().add(itemTwo);
+        invoice.getItems().add(itemThree);
 
         //When
         invoiceDao.save(invoice);

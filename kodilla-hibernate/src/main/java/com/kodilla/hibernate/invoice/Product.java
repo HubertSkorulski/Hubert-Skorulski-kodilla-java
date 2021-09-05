@@ -30,7 +30,7 @@ public class Product {
         return itemsProduct;
     }
 
-    public void setItemsProduct(List<Item> itemsProduct) {
+    private void setItemsProduct(List<Item> itemsProduct) {
         this.itemsProduct = itemsProduct;
     }
 
@@ -45,6 +45,7 @@ public class Product {
     private void setId(int id) {
         this.id = id;
     }
+
     @Column(name = "PRODUCTS_NAME")
     public String getName() {
         return name;
