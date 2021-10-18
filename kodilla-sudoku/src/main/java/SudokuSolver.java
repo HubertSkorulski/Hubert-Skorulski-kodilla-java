@@ -108,11 +108,11 @@ public class SudokuSolver {
     }
 
     public void exampleParameters() {
-        exampleSetting(1,4,6);
-        exampleSetting(1,2,4);
+        /*exampleSetting(1,2,4);
         exampleSetting(1,6,8);
         exampleSetting(1,8,3);
         exampleSetting(2,1,3);
+        exampleSetting(1,4,6);
         //exampleSetting(2,2,8);
         //exampleSetting(2,4,7);
         //exampleSetting(2,7,4);
@@ -185,7 +185,7 @@ public class SudokuSolver {
         }
 
     }
-    public Board setPreviousState(BeforeGuessing previousState) {
+    public Board setPreviousStateAndGetAdjustedBoard(BeforeGuessing previousState) {
 
         String coordinates = previousState.getCoordinates();
         Board board = previousState.getBoard();

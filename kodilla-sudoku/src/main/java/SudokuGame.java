@@ -4,62 +4,36 @@ import java.util.Scanner;
 
 public class SudokuGame {
 
+    List<BeforeGuessing> states = new ArrayList<>();
+    Board board = new Board();
+    SudokuSolver sudokuSolver = new SudokuSolver(board);
+
     public void processingSudoku(){
-
-        Board board = new Board();
-        SudokuSolver sudokuSolver = new SudokuSolver(board);
         int tries = 0;
-        List<BeforeGuessing> states = new ArrayList<>();
-
         sudokuSolver.exampleParameters();
         board.setDigit();
         if (sudokuSolver.correctBoard()) {
             while (board.emptyElements() != 0) {
-
                 sudokuSolver.prepareValuesInElements();
                 boolean solved = sudokuSolver.settingOccurred();
-
                 if (!solved) {
                     tries ++;
                 } else {
                     tries = 0;
                 }
-
-                if (tries > 2) {
+                if (tries > 2) { //to zrobić na guessing process
                     BeforeGuessing beforeGuessing = new BeforeGuessing();
-                    try {
-                        Board copiedBoard = board.deepCopy();
-                        beforeGuessing.setBoard(copiedBoard);
-                    } catch (CloneNotSupportedException e) {
-                        System.out.println("Deep copy not executed correctly");
-                    }
+                    saveBoard(beforeGuessing);
                     SudokuElement guessedElement = sudokuSolver.guessTheValue();
-
                     if (guessedElement != null && sudokuSolver.valid()) {
-                        if (states.size() > 0) {
-                            String coordinates1 = board.findElement(guessedElement);
-                            String coordinates2 = states.get(states.size()-1).getCoordinates();
-                            if (!coordinates1.equals(coordinates2)) {
-                                states.add(beforeGuessing);
-                                beforeGuessing.setGuessedElement(guessedElement);
-                                beforeGuessing.setCoordinates(board.findElement(guessedElement));
-                            }
-                        } else {
-                            beforeGuessing.setGuessedElement(guessedElement);
-                            beforeGuessing.setCoordinates(board.findElement(guessedElement));
-                            states.add(beforeGuessing);
-                        }
+                        definePreviousState(beforeGuessing,guessedElement);
                         tries = 0;
                     } else {
                         BeforeGuessing previousState = states.get(states.size()-1);
-                        board = sudokuSolver.setPreviousState(previousState);
-                        sudokuSolver.setBoard(board);
+                        board = useBoardFromPreviousState(previousState);
+
                         if (!sudokuSolver.valid()) {
-                            int index = states.indexOf(previousState);
-                            previousState = states.get(index -1);
-                            board = sudokuSolver.setPreviousState(previousState);
-                            sudokuSolver.setBoard(board);
-                            states.remove(index);
+                            board = useStateFromBeforePreviousState(previousState);
                         }
                     }
                 }
@@ -67,7 +41,6 @@ public class SudokuGame {
         } else {
             System.out.println("Board not correct");
         }
-
         System.out.println(board);
     }
 
@@ -92,9 +65,38 @@ public class SudokuGame {
                 System.out.println("I don't understand your answer");
             }
         }
-
     return gameFinished;
     }
+
+    public void definePreviousState(BeforeGuessing beforeGuessing, SudokuElement guessedElement) {
+        states.add(beforeGuessing);
+        beforeGuessing.setGuessedElement(guessedElement);
+        beforeGuessing.setCoordinates(board.findElement(guessedElement));
+    }
+
+    public Board useBoardFromPreviousState(BeforeGuessing previousState) {
+        Board board = sudokuSolver.setPreviousStateAndGetAdjustedBoard(previousState);
+        sudokuSolver.setBoard(board);
+        return board;
+    }
+
+    public void saveBoard(BeforeGuessing beforeGuessing) {
+        try {
+            Board boardToSave = board.deepCopy();
+            beforeGuessing.setBoard(boardToSave);
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Deep copy not executed correctly");
+        }
+    }
+
+    public Board useStateFromBeforePreviousState(BeforeGuessing previousState) {
+        int indexOfPreviousState = states.indexOf(previousState);
+        previousState = states.get(indexOfPreviousState - 1);
+        board = useBoardFromPreviousState(previousState);
+        states.remove(indexOfPreviousState);
+        return board;
+    }
+
 
 }
 
