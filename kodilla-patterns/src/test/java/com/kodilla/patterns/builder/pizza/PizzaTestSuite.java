@@ -20,5 +20,6 @@ public class PizzaTestSuite {
         int howManyIngredients = pizza.getIngredients().size();
         //Then
         assertEquals(3, howManyIngredients);
+
     }
 }
