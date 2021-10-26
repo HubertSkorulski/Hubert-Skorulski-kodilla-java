@@ -22,5 +22,7 @@ public class StreamMain {
         par.entrySet().stream()
                 .map(entry -> "ID:" + entry.getKey() + "->" + entry.getValue())
                 .forEach(System.out::println);
+
+        System.out.println("Nothing");
     }
 }

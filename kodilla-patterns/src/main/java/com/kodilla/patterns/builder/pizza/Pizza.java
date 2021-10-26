@@ -37,7 +37,7 @@ public final class Pizza {
     public Pizza(final String bottom, final String sauce, List<String> ingredients) {
         this.bottom = bottom;
         this.sauce = sauce;
-        this.ingredients = new ArrayList<>();
+        this.ingredients = ingredients;
     }
 
     public String getBottom() {
