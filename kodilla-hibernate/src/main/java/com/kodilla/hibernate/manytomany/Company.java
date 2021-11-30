@@ -8,7 +8,7 @@ import java.util.List;
 
 @NamedNativeQuery(
         name = "Company.retrieveCompaniesWithName",
-        query = "SELECT * FROM COMPANIES WHERE SUBSTRING(COMPANY_NAME,1,3) = :PART",
+        query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME like :ARG",
         resultClass = Company.class
 )
 

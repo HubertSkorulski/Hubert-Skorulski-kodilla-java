@@ -1,6 +1,6 @@
 package com.kodilla.good.patterns.challenges.privateair;
 
-import javax.servlet.ServletOutputStream;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
