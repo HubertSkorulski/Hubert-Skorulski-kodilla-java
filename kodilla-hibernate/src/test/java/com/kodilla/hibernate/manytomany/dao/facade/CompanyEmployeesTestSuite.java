@@ -27,7 +27,7 @@ public class CompanyEmployeesTestSuite {
         //Given
             Company firstCompany = new Company("Yossy");
             Company secondCompany = new Company("Yossel");
-            String partName = "%sse%";
+            String partName = "sse";
             companyDao.save(firstCompany);
             companyDao.save(secondCompany);
 
@@ -44,7 +44,7 @@ public class CompanyEmployeesTestSuite {
         //Given
             Employee firstEmployee = new Employee("Jerzy", "Janowicz");
             Employee secondEmployee = new Employee("Hubert", "Hurkacz");
-            String partName = "%rka%";
+            String partName = "rka";
             employeeDao.save(firstEmployee);
             employeeDao.save(secondEmployee);
 
